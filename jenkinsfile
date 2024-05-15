@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                sh 'go build -o my-go-app src/main.go'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'go test ./...'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                sh 'docker build -t my-go-app .'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh 'docker run -d -p 8080:8080 my-go-app'
+            }
+        }
+    }
+}
