@@ -8,7 +8,7 @@ WORKDIR /app
 COPY src/main.go .
 
 # Compile the Go code
-RUN go build -o my-go-app
+RUN go build -o my-go-app src/main.go
 
 # Set the command to run the application
 CMD ["./my-go-app"]
