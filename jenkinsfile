@@ -2,7 +2,12 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+       stage('Package') {
+            steps {
+                sh 'docker build -t my-go-app .'
+            }
+        }
+    stage('Build') {
             steps {
                 sh 'go build -o my-go-app src/main.go'
             }
@@ -14,11 +19,6 @@ pipeline {
             }
         }
 
-        stage('Package') {
-            steps {
-                sh 'docker build -t my-go-app .'
-            }
-        }
 
         stage('Deploy') {
             steps {
